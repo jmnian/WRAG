@@ -1,8 +1,10 @@
 # Code for Paper: "W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-domain Question Answering"
 
+## Code under construction... Please feel free to look around but I will refactor the code soon... 
+
 We define passage relevance as "how likely the passage elicits correct answer from a LLM" when it comes to RAG. This project re-labels passages from MSMARCO QnA v2.1, NQ, SQuAD, and WebQ according to this relevance definition. These weak labels are then used to train a dense retriever which will finally retrieve relevant passages to help LLM generate better responses. 
 
-arXiv link: https://arxiv.org/abs/2408.08444
+<!-- arXiv link: https://arxiv.org/abs/2408.08444 -->
 
 ## Setting up: 
 
@@ -11,7 +13,7 @@ We use `python 3.9.18`, and `transformers 4.43.3`, `torch 2.2.0`, `ragatouille 0
 
 ## Download our labeled datasets
 
-https://zenodo.org/records/13246426?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImQyYzM4N2V[…]cPYUhw2W8BjmLYnCihCYE0tISVxeiSOhQp34A5GoqbXowwjJUNl5ew4xdRnqN3Q
+<!-- https://zenodo.org/records/13246426?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImQyYzM4N2V[…]cPYUhw2W8BjmLYnCihCYE0tISVxeiSOhQp34A5GoqbXowwjJUNl5ew4xdRnqN3Q -->
 
 For orginal datasets, please visit https://microsoft.github.io/msmarco/ for their QA datset, and https://github.com/facebookresearch/DPR?tab=readme-ov-file#resources--data-formats for NQ, SQuAD, and WebQ. 
 
@@ -75,7 +77,7 @@ Note: `--model_path` can be found in `train_retriever/output`. For ColBERT, look
 
 
 ### Step 5: OpenQA Evaluations
-Our code supports `llama3, llama3.1, gemma2, phi3, mistral, llama2`
+<!-- Our code supports `llama3, llama3.1, gemma2, phi3, mistral, llama2` -->
 
 Naive: 
 ```
@@ -106,7 +108,7 @@ Figure 3 in the paper (Fix Prompt Study Different LLM, MSMARCO on 500 Val):
 Go to `weak_label_gen/generate_weak_labels.py`, change parameters in `study_different_llm_on_msmarco`, comment out other code and run `python weak_label_gen/generate_weak_labels.py`
 
 
-## Citation
+<!-- ## Citation
 
 ```
 @misc{nian2024wragweaklysuperviseddense,
@@ -118,4 +120,4 @@ Go to `weak_label_gen/generate_weak_labels.py`, change parameters in `study_diff
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2408.08444}, 
 }
-```
+``` -->
