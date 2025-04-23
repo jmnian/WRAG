@@ -11,7 +11,7 @@ We define passage relevance as "how likely the passage elicits correct answer fr
 We use `python 3.9.18`, and `transformers 4.43.3`, `torch 2.2.0`, `ragatouille 0.0.8`. Note that we made some modifications to `sentence-transformers` and `beir`, so please `cd` into `sentence-transformers_2.2.2` and `beir` in this project and do `pip install .` do install them. <br>
 `ragetouille` is used to train ColBERT, we write our own evaluation code, explained below. `sentence-transformers_2.2.2` is used to train and evaluate DPR. We use this earlier version because it is easier to make customizations, although the code is sometimes not that efficient compared to the latest versions. `beir` is used to manage data, and it is a wrapper for `sentence-transformers` for training and evaluating DPR. 
 
-## Download our labeled datasets
+## Original datasets
 
 <!-- https://zenodo.org/records/13246426?token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImQyYzM4N2V[…]cPYUhw2W8BjmLYnCihCYE0tISVxeiSOhQp34A5GoqbXowwjJUNl5ew4xdRnqN3Q -->
 
