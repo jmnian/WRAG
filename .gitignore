@@ -10,3 +10,5 @@ colbert_data/
 .ragatouille/
 RAGatouille
 README.txt
+.DS_Store
+.vscode/
