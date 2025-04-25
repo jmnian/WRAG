@@ -1,10 +1,6 @@
 # Code for Paper: "W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-domain Question Answering"
 
-## Code under construction... Please feel free to look around but I will refactor the code soon... 
-
 We define passage relevance as "how likely the passage elicits correct answer from a LLM" when it comes to RAG. This project re-labels passages from MSMARCO QnA v2.1, NQ, SQuAD, and WebQ according to this relevance definition. These weak labels are then used to train a dense retriever which will finally retrieve relevant passages to help LLM generate better responses. 
-
-<!-- arXiv link: https://arxiv.org/abs/2408.08444 -->
 
 ## Setting up: 
 
@@ -108,16 +104,3 @@ Figure 3 in the paper (Fix Prompt Study Different LLM, MSMARCO on 500 Val):
 Go to `weak_label_gen/generate_weak_labels.py`, change parameters in `study_different_llm_on_msmarco`, comment out other code and run `python weak_label_gen/generate_weak_labels.py`
 
 
-<!-- ## Citation
-
-```
-@misc{nian2024wragweaklysuperviseddense,
-      title={W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-domain Question Answering}, 
-      author={Jinming Nian and Zhiyuan Peng and Qifan Wang and Yi Fang},
-      year={2024},
-      eprint={2408.08444},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2408.08444}, 
-}
-``` -->

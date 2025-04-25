@@ -13,3 +13,5 @@ README.txt
 .DS_Store
 .vscode/
 data_workers/
+__pycache__/
+*.pyc
