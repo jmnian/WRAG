@@ -167,7 +167,7 @@ ANSWER: {answer}'''
     log_softmax = torch.nn.LogSoftmax(dim=-1)
     probs = log_softmax(logits)
 
-    # exclude the last logit 因为它是最后一个token的下一个token的概率
+    # exclude the last logit 
     answer_probability = probs[0, :-1]
 
     # only select probabilities for each token in the answer
