@@ -99,19 +99,20 @@ def test():
     print("Hi I am eval util")
 
 def no_passage_prompt(passages, question):
-    prompt = f'''QUESTION: {question}
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Question: {question}"},
+        {"role": "assistant", "content": ""}
+    ]
+    return messages 
 
 def one_passage_0shot_prompt(passages, question): # use "passages" just for consistency, there should only be 1 sentence in this list
-    prompt = f'''DOCUMENT: {passages[0]} 
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: {passages[0]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""}
+    ]
+    return messages 
 
 # def five_passage_0shot_prompt(passages, question): # This is old 
 #     prompt = f'''DOCUMENT: {passages[0]}
@@ -126,122 +127,117 @@ ANSWER: '''
 #     return prompt 
 
 def three_passage_0shot_prompt(passages, question):
-    prompt = f'''DOCUMENT: {passages[0]}
-DOCUMENT: {passages[1]}
-DOCUMENT: {passages[2]}
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: {passages[0]}\nPassage: {passages[1]}\nPassage: {passages[2]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""}
+    ]
+    return messages 
 
 def five_passage_0shot_prompt(passages, question):
-    prompt = f'''DOCUMENT: {passages[0]}
-DOCUMENT: {passages[1]}
-DOCUMENT: {passages[2]}
-DOCUMENT: {passages[3]}
-DOCUMENT: {passages[4]}
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: {passages[0]}\nPassage: {passages[1]}\nPassage: {passages[2]}\nPassage: {passages[3]}\nPassage: {passages[4]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""}
+    ]
+    return messages 
 
 def ten_passage_0shot_prompt(passages, question):
-    prompt = f'''DOCUMENT: {passages[0]}
-DOCUMENT: {passages[1]}
-DOCUMENT: {passages[2]}
-DOCUMENT: {passages[3]}
-DOCUMENT: {passages[4]}
-DOCUMENT: {passages[5]}
-DOCUMENT: {passages[6]}
-DOCUMENT: {passages[7]}
-DOCUMENT: {passages[8]}
-DOCUMENT: {passages[9]}
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: {passages[0]}\nPassage: {passages[1]}\nPassage: {passages[2]}\nPassage: {passages[3]}\nPassage: {passages[4]}\nPassage: {passages[5]}\nPassage: {passages[6]}\nPassage: {passages[7]}\nPassage: {passages[8]}\nPassage: {passages[9]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""}
+    ]
+    return messages
 
+def twenty_passage_0shot_prompt(passages, question):
+    passage_block = "\n".join([f"Passage: {p}" for p in passages])
+    user_content = f"{passage_block}\nQuestion: {question}"
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are a helpful assistant that answers questions using the provided passages. "
+                "If the passages do not contain the necessary information, you will answer the question directly "
+                "based on your general knowledge. Only provide the final answer, no explanations."
+            )
+        },
+        {"role": "user", "content": user_content},
+        {"role": "assistant", "content": ""}
+    ]
+    return messages
+
+def one_passage_1shot_prompt(passages, question):
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.\nQuestion: average temperature in paris in september in fahrenheit"},
+        {"role": "assistant", "content": "Min temperature: 52°F and max temperature: 70°F."},
+        {"role": "user", "content": f"Passage: {passages[0]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""},
+    ]
+    return messages
+
+def one_passage_2shot_prompt(passages, question):
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.\nQuestion: average temperature in paris in september in fahrenheit"},
+        {"role": "assistant", "content": "Min temperature: 52°F and max temperature: 70°F."},
+        {"role": "user", "content": f"Passage: If you have arthritis, you may have considered a cortisone shot as part of your treatment plan. These shots are not pain relievers. Cortisone is a type of steroid, a drug that lowers inflammation, which is something that can lead to less pain. Cortisone injections can be used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon. They can also treat inflammation that is widespread throughout the body, such as with allergic reactions, asthma, and rheumatoid arthritis, which affects many joints.\nQuestion: what is a cortisone injection used for"},
+        {"role": "assistant", "content": "Used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon."},
+        {"role": "user", "content": f"Passage: {passages[0]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""},
+    ]
+    return messages
+
+def one_passage_3shot_prompt(passages, question):
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.\nQuestion: average temperature in paris in september in fahrenheit"},
+        {"role": "assistant", "content": "Min temperature: 52°F and max temperature: 70°F."},
+        {"role": "user", "content": f"Passage: Big Bus Tours London. The hop-on, hop-off bus tour of London includes a cruise along the River Thames; a selection of guided walking tours and a Big Bus voucher booklet that offers a range of discounts at attractions, shops and restaurants.ur hop-on, hop-off bus tours of London allow you to explore the sights at your own pace. There are more than 50 locations where you can get off the bus to visit attractions or explore places of interest.\nQuestion: does the london hop on off bus price inlcude the cruise"},
+        {"role": "assistant", "content": "Yes"},
+        {"role": "user", "content": f"Passage: If you have arthritis, you may have considered a cortisone shot as part of your treatment plan. These shots are not pain relievers. Cortisone is a type of steroid, a drug that lowers inflammation, which is something that can lead to less pain. Cortisone injections can be used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon. They can also treat inflammation that is widespread throughout the body, such as with allergic reactions, asthma, and rheumatoid arthritis, which affects many joints.\nQuestion: what is a cortisone injection used for"},
+        {"role": "assistant", "content": "Used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon."},
+        {"role": "user", "content": f"Passage: {passages[0]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""},
+    ]
+    return messages 
 
 def five_passage_1shot_prompt(passages, question):
-    prompt = f'''Example: 
-PASSAGE: Big Bus Tours London. The hop-on, hop-off bus tour of London includes a cruise along the River Thames; a selection of guided walking tours and a Big Bus voucher booklet that offers a range of discounts at attractions, shops and restaurants.ur hop-on, hop-off bus tours of London allow you to explore the sights at your own pace. There are more than 50 locations where you can get off the bus to visit attractions or explore places of interest.
-QUESTION: does the london hop on off bus price inlcude the cruise
-ANSWER: Yes
-
-PASSAGE: {passages[0]}
-PASSAGE: {passages[1]}
-PASSAGE: {passages[2]}
-PASSAGE: {passages[3]}
-PASSAGE: {passages[4]}
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.\nQuestion: average temperature in paris in september in fahrenheit"},
+        {"role": "assistant", "content": "Min temperature: 52°F and max temperature: 70°F."},
+        {"role": "user", "content": f"Passage: {passages[0]}\nPassage: {passages[1]}\nPassage: {passages[2]}\nPassage: {passages[3]}\nPassage: {passages[4]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""},
+    ]
+    return messages 
 
 def five_passage_2shot_prompt(passages, question):
-    prompt = f'''Example 1:
-PASSAGE: If you have arthritis, you may have considered a cortisone shot as part of your treatment plan. These shots are not pain relievers. Cortisone is a type of steroid, a drug that lowers inflammation, which is something that can lead to less pain. Cortisone injections can be used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon. They can also treat inflammation that is widespread throughout the body, such as with allergic reactions, asthma, and rheumatoid arthritis, which affects many joints.
-QUESTION: what is a cortisone injection used for
-ANSWER: Used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon.
-
-Example 2: 
-PASSAGE: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.
-QUESTION: average temperature in paris in september in fahrenheit
-ANSWER: Min temperature: 52°F and max temperature: 70°F.
-
-PASSAGE: {passages[0]}
-PASSAGE: {passages[1]}
-PASSAGE: {passages[2]}
-PASSAGE: {passages[3]}
-PASSAGE: {passages[4]}
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.\nQuestion: average temperature in paris in september in fahrenheit"},
+        {"role": "assistant", "content": "Min temperature: 52°F and max temperature: 70°F."},
+        {"role": "user", "content": f"Passage: If you have arthritis, you may have considered a cortisone shot as part of your treatment plan. These shots are not pain relievers. Cortisone is a type of steroid, a drug that lowers inflammation, which is something that can lead to less pain. Cortisone injections can be used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon. They can also treat inflammation that is widespread throughout the body, such as with allergic reactions, asthma, and rheumatoid arthritis, which affects many joints.\nQuestion: what is a cortisone injection used for"},
+        {"role": "assistant", "content": "Used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon."},
+        {"role": "user", "content": f"Passage: {passages[0]}\nPassage: {passages[1]}\nPassage: {passages[2]}\nPassage: {passages[3]}\nPassage: {passages[4]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""},
+    ]
+    return messages 
 
 def five_passage_3shot_prompt(passages, question):
-    prompt = f'''Example 1:
-PASSAGE: If you have arthritis, you may have considered a cortisone shot as part of your treatment plan. These shots are not pain relievers. Cortisone is a type of steroid, a drug that lowers inflammation, which is something that can lead to less pain. Cortisone injections can be used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon. They can also treat inflammation that is widespread throughout the body, such as with allergic reactions, asthma, and rheumatoid arthritis, which affects many joints.
-QUESTION: what is a cortisone injection used for
-ANSWER: Used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon.
-
-Example 2: 
-PASSAGE: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.
-QUESTION: average temperature in paris in september in fahrenheit
-ANSWER: Min temperature: 52°F and max temperature: 70°F.
-
-Example 3: 
-PASSAGE: Big Bus Tours London. The hop-on, hop-off bus tour of London includes a cruise along the River Thames; a selection of guided walking tours and a Big Bus voucher booklet that offers a range of discounts at attractions, shops and restaurants.ur hop-on, hop-off bus tours of London allow you to explore the sights at your own pace. There are more than 50 locations where you can get off the bus to visit attractions or explore places of interest.
-QUESTION: does the london hop on off bus price inlcude the cruise
-ANSWER: Yes
-
-PASSAGE: {passages[0]}
-PASSAGE: {passages[1]}
-PASSAGE: {passages[2]}
-PASSAGE: {passages[3]}
-PASSAGE: {passages[4]}
-QUESTION: {question}
-Answer the user's QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT does not contain the facts to answer the QUESTION, forget about the DOCUMENTS and directly answer the QUESTION
-Keep the answer within one short sentence. 
-ANSWER: '''
-    return prompt 
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that answers questions using the provided passage. If the passage does not contain the necessary information, you will answer the question directly based on your general knowledge. Only provide the final answer, no explanations"},
+        {"role": "user", "content": f"Passage: September Weather in Paris. – min temperature : 11°C / 52°F. – max temperature : 21°C / 70°F. – average rainfall : 54 mm. Although the Parisian weather can be quite variable in September, it remains pleasant for the most part. September is generally a sunny month with one of the lowest average rainfalls in the year.\nQuestion: average temperature in paris in september in fahrenheit"},
+        {"role": "assistant", "content": "Min temperature: 52°F and max temperature: 70°F."},
+        {"role": "user", "content": f"Passage: Big Bus Tours London. The hop-on, hop-off bus tour of London includes a cruise along the River Thames; a selection of guided walking tours and a Big Bus voucher booklet that offers a range of discounts at attractions, shops and restaurants.ur hop-on, hop-off bus tours of London allow you to explore the sights at your own pace. There are more than 50 locations where you can get off the bus to visit attractions or explore places of interest.\nQuestion: does the london hop on off bus price inlcude the cruise"},
+        {"role": "assistant", "content": "Yes"},
+        {"role": "user", "content": f"Passage: If you have arthritis, you may have considered a cortisone shot as part of your treatment plan. These shots are not pain relievers. Cortisone is a type of steroid, a drug that lowers inflammation, which is something that can lead to less pain. Cortisone injections can be used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon. They can also treat inflammation that is widespread throughout the body, such as with allergic reactions, asthma, and rheumatoid arthritis, which affects many joints.\nQuestion: what is a cortisone injection used for"},
+        {"role": "assistant", "content": "Used to treat inflammation of small areas of the body, such as inflammation of a specific joint or tendon."},
+        {"role": "user", "content": f"Passage: {passages[0]}\nPassage: {passages[1]}\nPassage: {passages[2]}\nPassage: {passages[3]}\nPassage: {passages[4]}\nQuestion: {question}"},
+        {"role": "assistant", "content": ""},
+    ]
+    return messages 
 
 def load_llm(llm_name, device, quantize=False, hf_token=""):
     model_name = None
@@ -409,9 +405,13 @@ def evaluate(answers, file_name=None, token_num=None):
             'bleu': 0,
             'bleu-1': 0,
             'meteor': 0,
+            'sub_em': 0,
             'em': 0,
         }
         evaluated_at_least_once = False 
+        print("Answer:", answer_list)
+        print("Generated Answer:", answer_gen)
+        print("==========================================================")
         for answer in answer_list:
             if answer is None or len(answer) == 0 or len(answer_gen) == 0:
                 bad = bad + 1
@@ -423,16 +423,19 @@ def evaluate(answers, file_name=None, token_num=None):
             bleu_score = calculate_bleu(answer, answer_gen)
             bleu_1_score = calculate_bleu(answer, answer_gen, n_grams=1)
             meteor = meteor_score([word_tokenize(answer)], word_tokenize(answer_gen))
+            sub_em = 1 if answer in answer_gen else 0
             em = 1 if answer == answer_gen else 0
             # Update best scores if current scores are higher
             best_scores['f1'] = max(best_scores['f1'], f1_gen)
+            best_scores['em'] = max(best_scores['em'], em)
+            best_scores['bleu-1'] = max(best_scores['bleu-1'], bleu_1_score)
             best_scores['rouge-1'] = max(best_scores['rouge-1'], scores['rouge-1']['f'])
             best_scores['rouge-2'] = max(best_scores['rouge-2'], scores['rouge-2']['f'])
             best_scores['rouge-l'] = max(best_scores['rouge-l'], scores['rouge-l']['f'])
             best_scores['bleu'] = max(best_scores['bleu'], bleu_score)
-            best_scores['bleu-1'] = max(best_scores['bleu-1'], bleu_1_score)
             best_scores['meteor'] = max(best_scores['meteor'], meteor)
-            best_scores['em'] = max(best_scores['em'], em)
+            best_scores['sub_em'] = max(best_scores['sub_em'], sub_em)
+            
             evaluated_at_least_once = True 
         if evaluated_at_least_once:
             results[qid] = best_scores
@@ -447,8 +450,8 @@ def evaluate(answers, file_name=None, token_num=None):
     if file_name is not None and file_name != "":
         current_time = datetime.datetime.now()
         time_string = current_time.strftime('%m_%d_%H:%M')
-        with open(f"{file_name}__{time_string}_{token_num}token.json", 'w') as f:
+        with open(f"{file_name}__{time_string}.json", 'w') as f:
             json.dump(results, f, indent=4)
         print(f"{bad} answers are bad")
-        print(f"Individual results written to {file_name}__{time_string}_{token_num}token.json")
+        print(f"Individual results written to {file_name}__{time_string}.json")
     
