@@ -104,3 +104,23 @@ Figure 3 in the paper (Fix Prompt Study Different LLM, MSMARCO on 500 Val):
 Go to `weak_label_gen/generate_weak_labels.py`, change parameters in `study_different_llm_on_msmarco`, comment out other code and run `python weak_label_gen/generate_weak_labels.py`
 
 
+### Citation
+
+```
+@inproceedings{10.1145/3731120.3744578,
+    author = {Nian, Jinming and Peng, Zhiyuan and Wang, Qifan and Fang, Yi},
+    title = {W-RAG: Weakly Supervised Dense Retrieval in RAG for Open-domain Question Answering},
+    year = {2025},
+    isbn = {9798400718618},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3731120.3744578},
+    doi = {10.1145/3731120.3744578},
+    booktitle = {Proceedings of the 2025 International ACM SIGIR Conference on Innovative Concepts and Theories in Information Retrieval (ICTIR)},
+    pages = {136–146},
+    numpages = {11},
+    keywords = {dense retrieval, open-domain question answering, retrieval augmented generation, weak supervised learning},
+    location = {Padua, Italy},
+    series = {ICTIR '25}
+}
+```
